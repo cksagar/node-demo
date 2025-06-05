@@ -1,4 +1,4 @@
-import express, {RequestHandler } from 'express';
+import express, { RequestHandler } from 'express';
 import { User } from '../models/User';
 
 const router = express.Router();
@@ -24,25 +24,25 @@ const getUsers: RequestHandler = async (req, res) => {
 
 // Update user
 const updateUser: RequestHandler = async (req, res) => {
-  try{
+  try {
     const id = req.params.id;
-    const {firstname} = req.body;
+    const { firstname } = req.body;
 
-    if(!id || !firstname){
-      res.status(400).json({message: 'Id and firstname are required'});
+    if (!id || !firstname) {
+      res.status(400).json({ message: 'Id and firstname are required' });
       return;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(id, {firstname}, {new: true});
-    if(!updatedUser){
-      res.status(404).json({message: 'User not found'});
+    const updatedUser = await User.findByIdAndUpdate(id, { firstname }, { new: true });
+    if (!updatedUser) {
+      res.status(404).json({ message: 'User not found' });
       return;
-    } 
+    }
 
     res.status(200).json(updatedUser);
   } catch (err) {
     console.error(err);
-    res.status(500).json({message:`msg: ${err}`});
+    res.status(500).json({ message: `msg: ${err}` });
   }
 };
 
@@ -76,11 +76,9 @@ const createUser: RequestHandler = async (req, res) => {
   }
 };
 
-
-
 // Routes
 router.get('/', getUsers);
 router.post('/', createUser);
 router.patch('/:id', updateUser);
 
-export default router; 
+export default router;

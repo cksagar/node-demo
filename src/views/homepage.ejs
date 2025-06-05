@@ -1,0 +1,42 @@
+<!-- submitUrl.ejs -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Submit a URL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Enter a URL to Shorten</h2>
+    <% if (locals.id) { %>
+        <h3>generated url: <%= "http://localhost:5000/url/" + locals.id %>
+        </h3>
+        <% } %>
+            </h3>
+            <form action="/url" method="POST">
+                <label for="redirectUrl">URL:</label>
+                <input type="text" name="redirectUrl" id="redirectUrl" required placeholder="https://example.com">
+                <button type="submit">Shorten URL</button>
+            </form>
+</body>
+
+</html>

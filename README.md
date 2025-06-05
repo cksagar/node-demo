@@ -1,6 +1,7 @@
 # Node.js TypeScript Starter
 
 Includes:
+
 - TypeScript
 - Express
 - ESLint + Prettier
