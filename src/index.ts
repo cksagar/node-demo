@@ -2,10 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
+import cookieParser from 'cookie-parser';
 
 import userRoutes from './routes/userRoutes';
 import urlRoutes from './routes/urlRoutes';
 import homeRoutes from './routes/homeRoutes';
+import loginRequired from './middlewares/loginrequired';
 
 dotenv.config();
 
@@ -19,6 +21,7 @@ app.set('views', path.resolve('./src/views'));
 // Middleware configuration
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Connect to MongoDB
 mongoose
@@ -27,8 +30,8 @@ mongoose
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Routes
-app.use('/users', userRoutes);
-app.use('/url', urlRoutes);
+app.use('/user', userRoutes);
+app.use('/url', loginRequired, urlRoutes);
 app.use('/', homeRoutes);
 
 // Start server

@@ -8,16 +8,26 @@ const router = express.Router();
 const createShortUrl: RequestHandler = async (req, res) => {
   const shortId = nanoid(8);
   try {
-    const { redirectUrl } = req.body;
-    if (!req.body.redirectUrl) {
+    let { redirectUrl } = req.body;
+
+    if (!redirectUrl) {
       res.status(400).json({ message: 'Url is missing' });
       return;
     }
 
-    const newUrl = new Url({ shortUrl: shortId, redirectUrl, clickHistory: [] });
+    // Auto-correct missing protocol
+    if (!/^https?:\/\//i.test(redirectUrl)) {
+      redirectUrl = 'https://' + redirectUrl;
+    }
+
+    const newUrl = new Url({
+      shortUrl: shortId,
+      redirectUrl,
+      clickHistory: [],
+    });
     await newUrl.save();
-    return res.render('homepage', { id: shortId });
-    // res.status(201).json(shortId);
+    res.render('homepage', { id: shortId });
+    return;
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

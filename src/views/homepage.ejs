@@ -32,11 +32,19 @@
         </h3>
         <% } %>
             </h3>
-            <form action="/url" method="POST">
-                <label for="redirectUrl">URL:</label>
-                <input type="text" name="redirectUrl" id="redirectUrl" required placeholder="https://example.com">
-                <button type="submit">Shorten URL</button>
-            </form>
+
+            <% if (locals.savedUser) { %>
+                <h2>Welcome, <%= savedUser.name %>!</h2>
+                <p>Your email is <%= savedUser.email %>
+                </p>
+                <% } %>
+                    </h3>
+                    <form action="/url" method="POST">
+                        <label for="redirectUrl">URL:</label>
+                        <input type="text" name="redirectUrl" id="redirectUrl" required
+                            placeholder="https://example.com">
+                        <button type="submit">Shorten URL</button>
+                    </form>
 </body>
 
 </html>

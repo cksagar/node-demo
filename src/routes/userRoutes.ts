@@ -1,16 +1,9 @@
 import express, { RequestHandler } from 'express';
-import { User } from '../models/User';
+import { User, UserRequestBody } from '../models/User';
 
 const router = express.Router();
 
 // Define interface for user request body
-interface UserRequestBody {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-}
-
 // GET route to fetch all users
 const getUsers: RequestHandler = async (req, res) => {
   try {
@@ -33,7 +26,7 @@ const updateUser: RequestHandler = async (req, res) => {
       return;
     }
 
-    const updatedUser = await User.findByIdAndUpdate(id, { firstname }, { new: true });
+    const updatedUser = await User.findByIdAndUpdate(id, { name: firstname }, { new: true });
     if (!updatedUser) {
       res.status(404).json({ message: 'User not found' });
       return;
@@ -54,8 +47,9 @@ const createUser: RequestHandler = async (req, res) => {
       return;
     }
 
-    const { firstname, lastname, email, password } = req.body as UserRequestBody;
-    if (!firstname || !lastname || !email || !password) {
+    const { name, email, password } = req.body as UserRequestBody;
+
+    if (!name || !email || !password) {
       res.status(400).json({ message: 'All fields are required' });
       return;
     }
@@ -67,9 +61,11 @@ const createUser: RequestHandler = async (req, res) => {
       return;
     }
 
-    const newUser = new User({ firstname, lastname, email, password });
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    // Create and save the user in one step
+    const savedUser = await User.create({ name, email, password });
+    res.status(201).render('homepage', {
+      savedUser,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
