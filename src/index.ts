@@ -1,40 +1,34 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import path from 'path';
-import cookieParser from 'cookie-parser';
+import 'dotenv/config';
+import express, { type Application, type Request, type Response } from 'express';
+import timeLogging from './middlewares/time-logging';
+import booksRouter from './routes/books.routes';
 
-import userRoutes from './routes/userRoutes';
-import urlRoutes from './routes/urlRoutes';
-import homeRoutes from './routes/homeRoutes';
-import loginRequired from './middlewares/loginrequired';
+const app: Application = express();
+const PORT = 5000;
 
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-//for SSR
-app.set('view engine', 'ejs');
-app.set('views', path.resolve('./src/views'));
-
-// Middleware configuration
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use('/books', booksRouter);
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI!)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
 
-// Routes
-app.use('/user', userRoutes);
-app.use('/url', loginRequired, urlRoutes);
-app.use('/', homeRoutes);
+// call the middleware to log the request time, method, url
+app.use(timeLogging);
 
-// Start server
+app.get('/', (req: Request, res: Response)=>{
+  res.send('your are at homepage');
+})
+
+app.get('/about', (req: Request, res: Response)=>{
+  res.send('your are at about page');
+})
+
+app.get('/tweets', (req: Request, res: Response)=>{
+  res.send('your are at tweets page');
+})
+
+app.post('/tweets', (req: Request, res: Response)=>{
+  res.send('your are at tweets page');
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
