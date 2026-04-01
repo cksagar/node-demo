@@ -5,6 +5,7 @@ import { sql } from "drizzle-orm";
 
 import { db } from '../db';
 import {booksTable} from '../models/book.model';
+import { authorsTable } from '../models/author.model';
 
 export async function listBooks(req: Request, res: Response){
     const searchQuery = req.query.title;
@@ -41,7 +42,11 @@ export async function getBookById(req: Request, res: Response) {
     }
 
     try {
-        const rows = await db.select().from(booksTable).where(eq(booksTable.id, id)).limit(1);
+        const rows = await db.select()
+        .from(booksTable)
+        .where(eq(booksTable.id, id))
+        .leftJoin(authorsTable, eq(booksTable.authorId, authorsTable.id))
+        .limit(1);
         const book = rows[0];
         if (!book) {
             res.status(404).json({ message: `Book with ${id} not found` });
