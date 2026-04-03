@@ -62,3 +62,16 @@ req time: 11:10:08 PM - 01/04/26 - method: GET - url: /books?title=two%20States
 req time: 11:10:11 PM - 01/04/26 - method: GET - url: /books/7505f6ae-f95b-4406-8447-e556388dd769 
 req time: 11:10:16 PM - 01/04/26 - method: POST - url: /user 
 req time: 11:10:27 PM - 01/04/26 - method: POST - url: /user 
+req time: 3:16:24 PM - 03/04/26 - method: POST - url: /api/users/signup 
+req time: 3:16:49 PM - 03/04/26 - method: POST - url: /signup 
+req time: 3:17:53 PM - 03/04/26 - method: POST - url: /signup 
+req time: 3:21:52 PM - 03/04/26 - method: POST - url: /signup 
+req time: 3:22:20 PM - 03/04/26 - method: POST - url: /signup 
+req time: 3:22:29 PM - 03/04/26 - method: POST - url: /user/signup 
+req time: 3:22:56 PM - 03/04/26 - method: POST - url: /user/signup 
+req time: 3:23:12 PM - 03/04/26 - method: POST - url: /users/login 
+req time: 3:23:20 PM - 03/04/26 - method: POST - url: /users/login 
+req time: 3:23:24 PM - 03/04/26 - method: POST - url: /user/login 
+req time: 3:23:52 PM - 03/04/26 - method: GET - url: /user 
+req time: 3:24:03 PM - 03/04/26 - method: GET - url: /users 
+req time: 3:24:15 PM - 03/04/26 - method: GET - url: /user 

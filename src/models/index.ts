@@ -1,6 +1,4 @@
-import { booksTable } from './book.model';
-import { authorsTable } from './author.model';
-import { usersTable } from './user.model';
-import { userSessionsTable } from './user.model';
-
-export { booksTable, authorsTable, usersTable, userSessionsTable };
+export { booksTable } from './book.model';
+export { authorsTable } from './author.model';
+export { usersTable } from './user.model';
+export { userSessionsTable } from './user.model';

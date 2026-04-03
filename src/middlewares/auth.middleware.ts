@@ -9,7 +9,7 @@ function isPublicRoute(req: Request): boolean {
   if (method === 'POST' && path === '/tweets') {
     return true;
   }
-  if (method === 'POST' && (path === '/user' || path === '/login')) {
+  if (method === 'POST' && (path === '/user/signup' || path === '/user/login')) {
     return true;
   }
   return false;
