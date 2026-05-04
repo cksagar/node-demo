@@ -5,9 +5,9 @@ import booksRouter from './routes/books.routes';
 import authorsRouter from './routes/author.routes';
 import userRouter from './routes/user.routes';
 import authMiddleware from './middlewares/auth.middleware';
+import { PORT } from './constant';
 
 const app: Application = express();
-const PORT = 5000;
 
 app.use(express.json());
 app.use(timeLogging);
